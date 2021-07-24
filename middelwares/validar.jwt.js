@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken");
 const validarJWT = (req = request,res = response,next) =>{
     //Leer token
     const token = req.header("x-token");
-    //console.log(token);
     if(!token){
         return res.status(401).
         json({
@@ -15,6 +14,7 @@ const validarJWT = (req = request,res = response,next) =>{
 
     try {
         const { uid } = jwt.verify(token,process.env.JWT_SECRET);
+        req.uid = uid;
         next();
 
     } catch (error) {

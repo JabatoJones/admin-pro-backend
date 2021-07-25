@@ -10,9 +10,14 @@ const { validarJWT } = require("../middelwares/validar.jwt");
 const router = Router();
 
 
-router.get("/",  getMedicos);
+router.get("/", getMedicos);
 
-router.post("/", [],
+router.post("/", [
+    validarJWT,
+    check("nombre", "El nombre del medico es necesario").notEmpty(),
+    check("hospital", "El hospitalId debe de ser valido").isMongoId(),
+    validarCampos
+],
     crearMedico
 );
 
@@ -23,7 +28,7 @@ router.put("/:id",
     ],
     actualizarMedico
 );
-router.delete("/:id",    
+router.delete("/:id",
     eliminarMedico
 );
 

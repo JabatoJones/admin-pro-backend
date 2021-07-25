@@ -11,18 +11,19 @@ const MedicoSchema = Schema({
     },
     usuario: {
         type: Schema.Types.ObjectId,
-        ref: "Usuario"
+        ref: "Usuario",
+        required:true
     },
     hospital: {
         type: Schema.Types.ObjectId,
-        ref: "Hospital"
+        ref: "Hospital",
+        required: true
     }
 },);
 
 //Modifica visualmente la respuesta del JSON, no afecta a lo que se guarda en la BBDD
 MedicoSchema.method('toJSON', function () {
     const { __v, ...object } = this.toObject();
-    object.uid = _id;
     return object;
 })
 
